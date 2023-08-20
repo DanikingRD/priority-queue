@@ -72,7 +72,7 @@ public:
                 // Ejemplo:
                 // Value: 12 23 33 41
                 // Prior: 1  5  5  6
-                // Si llamamos Push(100, 5), el nuevo nodo debe ir entre el nodo 23 y el nodo 33
+                // Si llamamos Push(100, 5), el nuevo nodo debe ir entre el nodo 33 y el nodo 41
                 // en este caso front apuntaria al nodo 33.
                 node->next = front->next; // Le asignamos su siguiente nodo al nuevo nodo.
                 // Al nodo 33 le asignamos como siguiente nodo al nuevo nodo.
