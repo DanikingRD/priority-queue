@@ -1,5 +1,5 @@
 /*
- * ENUNCIADO: Stack
+ * ENUNCIADO: Queue
  * INTEGRANTES: 1113684 - Clay Manuel Gomera Arias
  *              1114116 - Jean Carlos Araujo Molina
  *              1116906 - Gabriel Mejía Acosta
