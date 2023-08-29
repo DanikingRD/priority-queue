@@ -48,7 +48,7 @@ public:
         enqueue(value, this->defaultPriority);
     }
 
-    void enqueue(int value, int priority)
+    void enqueue(int value, unsigned int priority)
     {
 
         Node *node = new Node();
@@ -234,6 +234,11 @@ void makeEnqueueWithPriority(PriorityQueue *queue)
     readInt(value);
     cout << "Ingrese la prioridad del valor: ";
     readInt(priority);
+    if (priority < 0)
+    {
+        cout << " * La prioridad no puede ser negativa." << endl;
+        return;
+    }
     queue->enqueue(value, priority);
     cout << " * El valor " << value << ", con prioridad " << priority << " ha sido agregado a la cola." << endl;
     cout << queue->toString() << endl;
@@ -299,7 +304,6 @@ void run()
              << "   7. Para mostrar el ultimo elemento de la cola (tail)\n"
              << "   8. Para mostrar la cola (toString)\n"
              << "Ingrese su opción: ";
-        ;
         readInt(option);
 
         switch (option)
