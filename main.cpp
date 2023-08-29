@@ -17,17 +17,17 @@ private:
     // Puntero al ultimo elemento en la cola
     Node *tail;
     // Cantidad de elementos en la cola
-    unsigned int len;
+    unsigned int length;
     // Prioridad por defecto
     unsigned int defaultPriority;
 
 public:
-    PriorityQueue(int defaultPriority = 16)
+    PriorityQueue(int lowestPriority = 16)
     {
         head = nullptr;
         tail = nullptr;
-        len = 0;
-        this->defaultPriority = defaultPriority;
+        length = 0;
+        this->defaultPriority = lowestPriority;
     }
 
     void enqueue(int value)
@@ -37,9 +37,16 @@ public:
 
     void enqueue(int value, int priority)
     {
+
         Node *node = new Node();
         node->value = value;
         node->priority = priority;
+
+        if (priority > defaultPriority)
+        {
+            node->priority = this->defaultPriority;
+        }
+
         // Si la cola esta vacía
         if (isEmpty())
         {
@@ -50,7 +57,6 @@ public:
         }
         else
         {
-
             // Si la prioridad de la cabeza es mayor a la prioridad del nuevo nodo
             // ej: head->priority = 5, priority = 3
             if (head->priority > priority)
@@ -83,9 +89,12 @@ public:
                 // Prior: 1  5  5   5  6
             }
         }
-        len++;
+        length++;
     }
 
+    /*
+     * Elimina un elemento en la cabeza de la cola.
+     */
     void dequeue()
     {
         // Si la cola esta vacía no hacemos nada
@@ -93,38 +102,57 @@ public:
         {
             return;
         }
-
+        // Guardamos la referencia a la cabeza actual
         Node *prevHead = head;
+        // La cabeza pasa a ser el siguiente nodo
         head = head->next;
 
+        // Si el siguiente nodo es nulo, significa que la cola esta vacía
         if (head == nullptr)
         {
+            // Por lo tanto la cola esta vacía y la cola pasa a ser nula
             tail = nullptr;
         }
+        // Eliminamos el nodo que era la cabeza
         delete prevHead;
-        len--;
+        length--;
     }
 
-    bool isEmpty()
+    /*
+     * Indica si la cola esta vacía.
+     */
+    bool isEmpty() const
     {
-        return len == 0;
+        return length == 0;
     }
 
-    unsigned int size()
+    /*
+     * Devuelve la cantidad de elementos en la cola.
+     */
+    unsigned int size() const
     {
-        return len;
+        return length;
     }
 
-    int top()
+    /*
+     * Devuelve el valor del primer elemento en la cola.
+     */
+    int top() const
     {
         return head->value;
     }
 
-    int bottom()
+    /*
+     * Devuelve el valor del ultimo elemento en la cola.
+     */
+    int bottom() const
     {
         return tail->value;
     }
 
+    /*
+     * Elimina todos los elementos de la cola.
+     */
     void clear()
     {
         while (!isEmpty())
@@ -166,7 +194,7 @@ void readInt(int &value)
     }
 }
 
-void makePush(PriorityQueue *queue)
+void makeEnqueue(PriorityQueue *queue)
 {
     int value;
     cout << "Ingrese el valor a agregar: ";
@@ -176,7 +204,7 @@ void makePush(PriorityQueue *queue)
     cout << queue->toString() << endl;
 }
 
-void makePushWithPriority(PriorityQueue *queue)
+void makeEnqueueWithPriority(PriorityQueue *queue)
 {
     int value, priority;
     cout << "Ingrese el valor a agregar: ";
@@ -258,10 +286,10 @@ void run()
             exit(0);
             break;
         case 1:
-            makePush(queue);
+            makeEnqueue(queue);
             break;
         case 2:
-            makePushWithPriority(queue);
+            makeEnqueueWithPriority(queue);
             break;
         case 3:
             makePop(queue);
