@@ -239,7 +239,7 @@ void makeEnqueueWithPriority(PriorityQueue *queue)
     cout << queue->toString() << endl;
 }
 
-void makePop(PriorityQueue *queue)
+void makeDequeue(PriorityQueue *queue)
 {
     if (queue->isEmpty())
     {
@@ -315,7 +315,7 @@ void run()
             makeEnqueueWithPriority(queue);
             break;
         case 3:
-            makePop(queue);
+            makeDequeue(queue);
             break;
         case 4:
             makeClear(queue);
