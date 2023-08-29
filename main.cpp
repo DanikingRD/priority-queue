@@ -74,18 +74,19 @@ public:
             // ej: head->priority = 5, priority = 3
             if (head->priority > priority)
             {
-                // En este caso el nuevo nodo debe ser la cabeza de la cola
-                node->next = head; // El siguiente nodo va a ser la cabeza actual
+                // En este caso nodo siguiente va a ser la cabeza actual
+                node->next = head;
                 // El nuevo nodo se convierte en la cabeza de la cola
                 head = node;
             }
             else
             {
-                Node *front = head; // Referencia a la cabeza de la cola
+                // Nodo auxiliar para recorrer la cola
+                Node *i = head;
                 // Nos movemos a traves de la cola hasta encontrar el ultimo nodo con prioridad menor o igual a la del nuevo nodo
-                while (front->next != nullptr && front->next->priority <= priority)
+                while (i->next != nullptr && i->next->priority <= priority)
                 {
-                    front = front->next;
+                    i = i->next;
                 }
                 // Al salir del ciclo, front apunta al lugar donde debe ir el nuevo nodo.
                 // Ejemplo:
@@ -93,13 +94,18 @@ public:
                 // Prior: 1  5  5  6
                 // Si llamamos Push(100, 5), el nuevo nodo debe ir entre el nodo 33 y el nodo 41
                 // en este caso front apuntaria al nodo 33.
-                node->next = front->next; // Le asignamos su siguiente nodo al nuevo nodo.
+                node->next = i->next; // Le asignamos su siguiente nodo al nuevo nodo.
                 // Al nodo 33 le asignamos como siguiente nodo al nuevo nodo.
-                front->next = node;
+                i->next = node;
                 // Por último el nuevo nodo se coloca en su posición correspondiente.
                 // Al finalizar el ejemplo, la cola quedaria asi:
                 // Value: 12 23 33 100 41
                 // Prior: 1  5  5   5  6
+                // actualizar puntero de cola
+                if (node->next == nullptr)
+                {
+                    tail = node;
+                }
             }
         }
         length++;
