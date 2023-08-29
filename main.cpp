@@ -113,13 +113,14 @@ public:
 
     /*
      * Elimina un elemento en la cabeza de la cola.
+     * Retorna el valor del elemento eliminado.
      */
-    void dequeue()
+    int dequeue()
     {
         // Si la cola esta vacía no hacemos nada
         if (isEmpty())
         {
-            return;
+            return -1;
         }
         // Guardamos la referencia a la cabeza actual
         Node *prevHead = head;
@@ -132,9 +133,12 @@ public:
             // Por lo tanto la cola esta vacía y la cola pasa a ser nula
             tail = nullptr;
         }
+        // Almacenar el valor antes de eliminar el nodo
+        int value = prevHead->value;
         // Eliminamos el nodo que era la cabeza
         delete prevHead;
         length--;
+        return value;
     }
 
     /*
@@ -242,8 +246,8 @@ void makePop(PriorityQueue *queue)
         cout << " * La cola esta vacía." << endl;
         return;
     }
-    queue->dequeue();
-    cout << " * El valor ha sido eliminado de la cola." << endl;
+    int value = queue->dequeue();
+    cout << "* El valor " << value << " ha sido eliminado de la cola." << endl;
     cout << queue->toString() << endl;
 }
 void makeClear(PriorityQueue *queue)
