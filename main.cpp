@@ -31,40 +31,34 @@ private:
     Node *tail;
     // Cantidad de elementos en la cola
     unsigned int length;
-    // Prioridad por defecto
-    unsigned int defaultPriority;
+
+    static const unsigned int defaultPriority = 16;
 
 public:
-    PriorityQueue(int lowestPriority = 16)
+    PriorityQueue()
     {
         head = nullptr;
         tail = nullptr;
         length = 0;
-        this->defaultPriority = lowestPriority;
     }
 
-    void enqueue(int value)
-    {
-        enqueue(value, this->defaultPriority);
-    }
-
-    void enqueue(int value, unsigned int priority)
+    void enqueue(int value, unsigned int priority = defaultPriority)
     {
 
         Node *node = new Node();
         node->value = value;
         node->priority = priority;
+        node->next = nullptr;
 
         if (priority > defaultPriority)
         {
-            node->priority = this->defaultPriority;
+            // Asignar prioridad por defecto
+            node->priority = defaultPriority;
         }
 
-        // Si la cola esta vacía
+        // Si la cola esta vacía cola y cabeza deben apuntar al nuevo nodo.
         if (isEmpty())
         {
-            // La cabeza y la cola apuntan al nuevo nodo
-            // Esto es porque el nuevo nodo es el unico elemento en la cola
             head = node;
             tail = node;
         }
@@ -136,8 +130,8 @@ public:
         // Almacenar el valor antes de eliminar el nodo
         int value = prevHead->value;
         // Eliminamos el nodo que era la cabeza
-        delete prevHead;
         length--;
+        delete prevHead;
         return value;
     }
 
@@ -196,7 +190,7 @@ public:
         Node *front = head;
         while (front != nullptr)
         {
-            result += to_string(front->value) + "\t     " + to_string(front->priority) + "\n";
+            result += to_string(front->value) + "\t      " + to_string(front->priority) + "\n";
             front = front->next;
         }
         result += "-------------------";
